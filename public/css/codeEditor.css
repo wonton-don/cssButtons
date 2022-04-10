@@ -1,0 +1,252 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background: #5971a5;
+    overflow: hidden;
+    margin: 0 0 0 0;
+}
+
+.navBar {
+    width: 100%;
+    height: 5.3%;
+    background-color: #C4C4C4;
+    margin: 0 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.first {
+    display: flex;
+    margin: 0 0 0 0;
+    width: 50%;
+}
+
+.first>a {
+    color: black;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 18px;
+    margin-left: 5%;
+}
+
+.second {
+    margin: 0 0 0 0;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.second>button {
+    height: 80%;
+    width: 15%;
+    margin: 0 1.5% 0 0%;
+    border-radius: 3px;
+    border: 1px solid black;
+    font-weight: 400;
+    transition: all 0.25s;
+}
+
+.second>button:hover {
+    cursor: pointer;
+    background: rgb(229, 229, 229);
+}
+
+.searchIcon {
+    height: 67%;
+    width: auto;
+    margin-right: 2%;
+}
+
+.cornerProfilePic {
+    height: 85%;
+    width: auto;
+    border-radius: 8%;
+    justify-self: flex-end;
+    margin-right: 6%;
+}
+
+.container {
+    width: 100%;
+    height: 90%;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.line {
+    position: absolute;
+    margin: 0 0 0 0;
+    width: 0.8%;
+    height: 95%;
+    background-color: #c4c4c4;
+    left: 57%;
+    z-index: 2;
+    padding: 0 0 0 0;
+}
+
+.codeEditor {
+    position: absolute;
+    background: #ECD9BA;
+    height: 88%;
+    width: 57%;
+    margin: 0 0 0 0;
+    top: 12.3%;
+    z-index: 2;
+    padding: 0 0 0 0;
+}
+
+input:focus,
+textarea:focus,
+button:focus,
+select:focus {
+    outline: none;
+}
+
+.codeText {
+    height: 100%;
+    width: 100%;
+    border: none;
+}
+
+.textarea {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    color: black;
+    font-family: 'San Francisco', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.07ch;
+    border: none;
+    padding-top: 1%;
+    padding-left: 1%;
+}
+
+.con {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.none {
+    display: none;
+}
+
+.rightSide {
+    position: absolute;
+    width: 42%;
+    height: 94.5%;
+    z-index: 100;
+    left: 57.8%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 0 0;
+}
+
+#output {
+    width: 100%;
+    height: 92%;
+    z-index: 100;
+    border: none;
+}
+
+.submit {
+    background-color: #2d426e;
+    height: 7%;
+    width: 101%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    top: 1.19%;
+}
+
+#submitButton {
+    width: 18%;
+    height: 85%;
+    font-family: 'San Francisco';
+    font-size: 20px;
+    font-weight: 500;
+    background-color: #c4c4c4;
+    border: 1.5px solid black;
+    margin-right: 4%;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+#submitButton:hover {
+    background-color: #adadad;
+    cursor: pointer;
+}
+
+pre {
+    position: relative;
+    background-color: transparent;
+}
+
+.htmlButton,
+.cssButton,
+.jsButton {
+    height: 95%;
+    width: 17%;
+    border: none;
+    margin: 0% 0.5% 0% 0.5%;
+    border-radius: 5px;
+    position: relative;
+    top: 8%;
+    z-index: -1;
+    font-family: 'San Francisco';
+    font-size: 28px;
+    font-weight: 500;
+    color: black;
+    border-top: 7px solid white;
+    background: #9b9a9a;
+    transition: all 0.2s;
+}
+
+.htmlButton:hover,
+.cssButton:hover,
+.jsButton:hover {
+    cursor: pointer;
+}
+
+.notActive {
+    border-top: none;
+    background: #6f6f6f;
+}
+
+.notActive:hover {
+    background: #797777;
+}
+
+button:hover {
+    background: #a09f9f;
+}
+
+.tabContainer {
+    position: absolute;
+    height: 7%;
+    width: 57%;
+    background: #b5a892;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+#name {
+    background-color: transparent;
+    width: 50%;
+    height: 90%;
+    font-weight: 500;
+    font-size: 30px;
+    overflow-y: hidden;
+    margin-left: 1%;
+    margin-bottom: -0.7%;
+    border: none;
+}

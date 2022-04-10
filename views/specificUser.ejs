@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css">
+    <link rel="stylesheet" type="text/css" href="/css/specificUser.css">
+</head>
+
+<body>
+    <div class="navBar">
+        <div class="first">
+            <a href="http://localhost:3000/buttons">All Buttons</a>
+            <a href="">My Buttons</a>
+        </div>
+        <div class="second">
+            <img src="/assets/icons8-search-240.png" class="searchIcon" alt="">
+            <button class="create">Create a button</button>
+            <button class="find">Find buttons</button>
+            <img src="/profilePics/1000_F_354224472_xDMe07QdjI8DII3JyEcFUNrH31ECEpf2.jpeg" class="cornerProfilePic"
+                alt="">
+
+        </div>
+    </div>
+    <div class="container">
+        <% for(let code of codes){ %>
+            <p class="invisible">
+                <%= code %>
+            </p>
+            <% } %>
+                <img id="profilePicture" src="<%= usr.profilePicture %> " alt="">
+                <div class="moreFlex">
+                    <div class="oneFlex">
+                        <h3 class="h3">
+                            Joined 07/18/2022
+                        </h3>
+                        <h2 class="name">
+                            <%= usr.name %>
+                        </h2>
+                        <h3 class="h3">
+                            <%=`${usr.followerCount.toLocaleString("en-US")} Followers`%>
+                        </h3>
+                    </div>
+                    <div class="moreInfo">
+                        <h4 class="h4">
+                            <%= `@${usr.username}` %>
+                        </h4>
+                        <div class="icons">
+                            <img class="icon" src="/assets/icons8-mail-100.png" alt="">
+                            <img class="icon" src="/assets/icons8-link-90.png" alt="">
+                            <img class="bigIcon" src="/assets/icons8-github-480.png" alt="">
+                            <img class="bigIcon" src="/assets/icons8-twitter-480.png" alt="">
+                        </div>
+                        <p class="bio">
+                            <%= usr.bio %>
+                        </p>
+                    </div>
+                    <div class="cardContainer">
+                        <% for(let button of buttons) {%>
+                            <div class="card">
+                                <iframe src="" frameborder="0"></iframe>
+                                <div class="info">
+                                    <img class="profilePic" src="<%= button.user.profilePicture %> " alt="">
+                                    <div class="userText">
+                                        <h3 class="inline">
+                                            <%= button.name %>
+                                        </h3>
+                                        <p class="red" href="http://localhost:3000/<%= button.user.username %> ">
+                                            <%= button.user.username%>
+                                        </p>
+                                    </div>
+                                    <div class="product-review-stars">
+                                        <input type="radio" id="star5" name="rating" value="5"
+                                            class="visuallyhidden" /><label for="star5" title="Rocks!">★</label>
+                                        <input type="radio" id="star4" name="rating" value="4"
+                                            class="visuallyhidden" /><label for="star4" title="Pretty good">★</label>
+                                        <input type="radio" id="star3" name="rating" value="3"
+                                            class="visuallyhidden" /><label for="star3" title="Meh">★</label>
+                                        <input type="radio" id="star2" name="rating" value="2"
+                                            class="visuallyhidden" /><label for="star2" title="Kinda bad">★</label>
+                                        <input type="radio" id="star1" name="rating" value="1"
+                                            class="visuallyhidden" /><label for="star1" title="Sucks big time">★</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+                <script src="/javascript/specificUser.js"></script>
+</body>
+
+</html>
