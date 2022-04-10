@@ -1,7 +1,3 @@
-const card = document.querySelector('.card');
-card.addEventListener('click', () => {
-    //go to href with link of /buttons/button name get button name from element with class fo inline
-})
 
 
 const iframes = document.querySelectorAll('iframe');
@@ -26,29 +22,33 @@ function run() {
     output.contentWindow.eval(jsInput.value);
 }
 
-const allCards = document.querySelectorAll('.card');
-const allNames = document.querySelectorAll('.inline');
-console.log(allNames)
-let cnt = 0;
-for (let card of allCards) {
-    for (var i = 0; i < allNames.length; i++) {
-        console.log(cnt)
-        card.addEventListener('click', () => {
 
-        })
-        cnt++
-        break;
-    }
+
+
+
+
+
+
+//for card and iframe click to take user to view cards
+const allCards = document.querySelectorAll('.card');
+for (let crd of allCards) {
+    crd.addEventListener('click', () => {
+        const btnName = crd.childNodes[3].childNodes[3].childNodes[1].innerText;
+        window.location.href = `http://localhost:3000/buttons/${btnName}`;
+    })
+}
+const Iframes = document.querySelectorAll('iframe');
+for (let iframe of iframes) {
+    iframe.contentDocument.body.addEventListener('click', () => {
+        const btnName = iframe.parentNode.childNodes[3].childNodes[3].childNodes[1].innerText;
+        window.location.href = `http://localhost:3000/buttons/${btnName}`;
+    })
 }
 
-document.querySelector('.card').addEventListener('click', () => {
-    window.location.href = `http://localhost:3000/buttons/${document.querySelector('.inline').innerText}`
-})
-
+//for buttons in navbar
 document.querySelector('.create').addEventListener('click', () => {
     window.location.href = 'http://localhost:3000/buttons/new';
 })
-
 document.querySelector('.find').addEventListener('click', () => {
     window.location.href = 'http://localhost:3000/buttons';
 })

@@ -53,13 +53,21 @@ router.get('/new', async (req, res) => {
     res.render('codeEditor')
 })
 
+router.get('/:name', async (req, res) => {
+    const name = req.params.name;
+    const btn = await Button.findOne({ name: name })
+        .populate('user')
+    console.log(btn)
+    res.render('buttonInfoView', { btn });
+})
+
 //route for showing code for specific button
 const getPosition = (string, subString, index) => string.split(subString, index).join(subString).length;
 const slicer = (search, code) => code.slice(code.indexOf(search) + 7, getPosition(code, search, 2) - 1);
 router.get('/:name/code', async (req, res) => {
     const btn = await Button.findOne({ name: req.params.name });
     let code = btn.code;
-    res.render('buttonViewer', { html: code.slice(code.indexOf('<'), getPosition(code, '>', 2) + 1), css: slicer('style', code), js: slicer('script', code), btn })
+    res.render('buttonCodeView', { html: code.slice(code.indexOf('<'), getPosition(code, '>', 2) + 1), css: slicer('style', code), js: slicer('script', code), btn })
 })
 
 module.exports = router;
