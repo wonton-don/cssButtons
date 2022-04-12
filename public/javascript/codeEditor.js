@@ -71,7 +71,7 @@ jsButton.addEventListener('click', () => {
 let output = document.querySelector('#output');
 
 function run() {
-    let cssCode2 = "<style>" + cssInput.value + "</style>";
+    let cssCode2 = "<style>" + cssInput.value + "body{ display: flex; justify-content: center; align-items: center;}</style>";
     output.contentDocument.body.innerHTML = htmlInput.value + cssCode2;
     output.contentWindow.eval(jsInput.value);
 }

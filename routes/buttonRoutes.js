@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     //saving button to db
     const fullCode = `${req.body.htmlInput} 
-     <style> ${req.body.cssInput} <style>
+     <style> ${req.body.cssInput} body{ display: flex; justify-content: center; align-items: center; background: none;}<style>
      <script>${req.body.jsInput}<script>`
     const newBtn = new Button({ name: req.body.name, user: '6248cb03a8496d0314c10abd', dateCreated: Date.now, code: fullCode, views: 0, likes: 0 });
     await newBtn.save()
@@ -53,17 +53,17 @@ router.get('/new', async (req, res) => {
     res.render('codeEditor')
 })
 
+
 router.get('/:name', async (req, res) => {
     const name = req.params.name;
     const btn = await Button.findOne({ name: name })
         .populate('user')
-    console.log(btn)
     res.render('buttonInfoView', { btn });
 })
 
-//route for showing code for specific button
 const getPosition = (string, subString, index) => string.split(subString, index).join(subString).length;
 const slicer = (search, code) => code.slice(code.indexOf(search) + 7, getPosition(code, search, 2) - 1);
+//route for showing code for specific button
 router.get('/:name/code', async (req, res) => {
     const btn = await Button.findOne({ name: req.params.name });
     let code = btn.code;
