@@ -5,6 +5,18 @@ html {
 body {
     height: 100%;
     background: #ECD9BA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card {
@@ -13,9 +25,52 @@ body {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.069), 0 3px 6px rgba(0, 0, 0, 0.085);
     height: 79%;
     width: 60%;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
+    transition: all 0.5s;
+}
+
+.shake {
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+a {
+    width: 80%;
+    text-align: right;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: -2.2%;
+    color: black;
+    margin-bottom: 3%;
+}
+
+span {
+    color: #CF3238;
 }
 
 .title {
@@ -32,6 +87,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all 0.5s;
 }
 
 .field {
@@ -44,6 +100,7 @@ body {
     color: rgb(48, 48, 48);
     border-radius: 4px;
     margin-bottom: 3%;
+    transition: all 0.25s;
 }
 
 label {
@@ -87,11 +144,11 @@ label {
     width: 35%;
     justify-content: space-around;
     align-items: center;
-    height: 18%;
+    height: 20%;
 }
 
 .option {
-    height: 93%;
+    height: 90%;
     width: auto;
     border-radius: 50%;
     transition: all 0.1s;
@@ -104,4 +161,24 @@ label {
 #profilePicture {
     visibility: hidden;
     position: absolute;
+}
+
+.top {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#backArrow {
+    height: 35%;
+    width: auto;
+    cursor: pointer;
+    position: relative;
+    right: 14%;
+}
+
+.missing {
+    border: 2.5px solid #d9534f;
 }

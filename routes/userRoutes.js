@@ -17,13 +17,54 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-router.get('/register', (req, res) => {
-    res.render('signUp');
+router.get('/register', async (req, res) => {
+    if (req.headers.cookie) {
+        const getLoggedInUser = async () => {
+            const rawCookies = req.headers.cookie.split('; ');
+            const parsedCookies = {};
+            rawCookies.forEach(rawCookie => {
+                const parsedCookie = rawCookie.split('=');
+                parsedCookies[parsedCookie[0]] = parsedCookie[1];
+            });
+            let userId = decodeURI(parsedCookies.signedInUser);
+            const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
+            return loggedInUser;
+        }
+        userResult = await getLoggedInUser();
+    } else {
+        userResult = false;
+    }
+    if (userResult != false) {
+        res.redirect('http://localhost:3000/buttons')
+    } else {
+        res.render('signUp');
+    }
 })
 
 router.get('/login', async (req, res) => {
     const allBtns = await Button.find();
-    res.render('login');
+    let userResult;
+    if (req.headers.cookie) {
+        const getLoggedInUser = async () => {
+            const rawCookies = req.headers.cookie.split('; ');
+            const parsedCookies = {};
+            rawCookies.forEach(rawCookie => {
+                const parsedCookie = rawCookie.split('=');
+                parsedCookies[parsedCookie[0]] = parsedCookie[1];
+            });
+            let userId = decodeURI(parsedCookies.signedInUser);
+            const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
+            return loggedInUser;
+        }
+        userResult = await getLoggedInUser();
+    } else {
+        userResult = false;
+    }
+    if (userResult != false) {
+        res.redirect('http://localhost:3000/buttons')
+    } else {
+        res.render('login');
+    }
 })
 
 router.post('/login', async (req, res) => {
@@ -37,6 +78,7 @@ router.post('/login', async (req, res) => {
         res.redirect('http://localhost:3000/users/login')
     }
     const signedInUser = foundUser;
+    let userResult;
 })
 
 //route for showing specific user profile
@@ -57,31 +99,37 @@ router.get('/:username', async (req, res) => {
         codes.push(one.code)
     }
     buttons = buttons.reverse()
-    const getLoggedInUser = async () => {
-        const rawCookies = req.headers.cookie.split('; ');
-        const parsedCookies = {};
-        rawCookies.forEach(rawCookie => {
-            const parsedCookie = rawCookie.split('=');
-            parsedCookies[parsedCookie[0]] = parsedCookie[1];
-        });
-        let userId = decodeURI(parsedCookies.signedInUser);
-        const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
-        return loggedInUser;
+    let userResult;
+    if (req.headers.cookie) {
+        const getLoggedInUser = async () => {
+            const rawCookies = req.headers.cookie.split('; ');
+            const parsedCookies = {};
+            rawCookies.forEach(rawCookie => {
+                const parsedCookie = rawCookie.split('=');
+                parsedCookies[parsedCookie[0]] = parsedCookie[1];
+            });
+            let userId = decodeURI(parsedCookies.signedInUser);
+            const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
+            return loggedInUser;
+        }
+        userResult = await getLoggedInUser();
+    } else {
+        userResult = false;
     }
-    const userResult = await getLoggedInUser();
     res.render('specificUser', { usr, dateJoined, buttons, codes, userResult })
 })
 
-router.post('/register', upload.single('imgUpload'), async (req, res) => {
+router.post('/register', async (req, res) => {
     const username = await User.find({ username: req.body.username });
-    if (username.length === 0) {
+    const email = await User.find({ email: req.body.email });
+    if (username.length === 0 && email.length === 0) {
         const hash = await bcrypt.hash(req.body.password, 12);
         const usr = new User({ name: req.body.name, username: req.body.username, email: req.body.email, profilePicture: req.body.profilePicture, bio: req.body.bio, postCount: 0, followerCount: 0, joined: new Date().toLocaleDateString(), hashedPassword: hash })
         await usr.save()
         res.cookie('signedInUser', usr._id)
         res.redirect('http://localhost:3000/buttons')
     } else {
-        res.redirect('http://localhost:3000/users/new')
+        res.redirect('http://localhost:3000/users/register')
     }
 })
 module.exports = router;

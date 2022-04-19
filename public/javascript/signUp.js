@@ -35,7 +35,81 @@ continueBtn.addEventListener('click', () => {
         } else {
             pt1.classList.add('none')
             pt2.classList.remove('none')
+            nameField.classList.remove('missing')
+            emailField.classList.remove('missing')
+            usernameField.classList.remove('missing')
         }
+    } else {
+        document.querySelector('.card').classList.add('shake');
+        if (nameField.value === '') {
+            nameField.classList.add('missing')
+        } else {
+            nameField.classList.remove('missing')
+        }
+        if (emailField.value === '') {
+            emailField.classList.add('missing')
+        } else {
+            emailField.classList.remove('missing')
+        }
+        if (usernameField.value === '') {
+            usernameField.classList.add('missing')
+        } else {
+            usernameField.classList.remove('missing')
+        }
+        window.addEventListener('keyup', () => {
+            if (nameField.value === '') {
+                nameField.classList.add('missing')
+            } else {
+                nameField.classList.remove('missing')
+            }
+            if (emailField.value === '') {
+                emailField.classList.add('missing')
+            } else {
+                emailField.classList.remove('missing')
+            }
+            if (usernameField.value === '') {
+                usernameField.classList.add('missing')
+            } else {
+                usernameField.classList.remove('missing')
+            }
+        })
+
+        setTimeout(() => {
+            document.querySelector('.card').classList.remove('shake')
+        }, 800)
+    }
+})
+
+submitBtn.addEventListener('click', () => {
+    if (bioField.value !== '' && passwordField.value !== '') {
+        document.querySelector('form').submit();
+    } else {
+        document.querySelector('.card').classList.add('shake');
+        if (bioField.value === '') {
+            bioField.classList.add('missing')
+        } else {
+            bioField.classList.remove('missing')
+        }
+        if (passwordField.value === '') {
+            passwordField.classList.add('missing')
+        } else {
+            passwordField.classList.remove('missing')
+        }
+        window.addEventListener('keyup', () => {
+            if (bioField.value === '') {
+                bioField.classList.add('missing')
+            } else {
+                bioField.classList.remove('missing')
+            }
+            if (passwordField.value === '') {
+                passwordField.classList.add('missing')
+            } else {
+                passwordField.classList.remove('missing')
+            }
+        })
+        setTimeout(() => {
+            document.querySelector('.card').classList.remove('shake')
+        }, 800)
     }
 })
 
@@ -60,3 +134,7 @@ opt2.addEventListener('click', () => {
     }
 })
 
+document.querySelector('#backArrow').addEventListener('click', () => {
+    pt1.classList.remove('none')
+    pt2.classList.add('none')
+})

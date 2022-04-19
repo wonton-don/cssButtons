@@ -1,4 +1,5 @@
-
+var cssValidate = require('css-validator');
+var amphtmlValidator = require('amphtml-validator');
 
 
 //html section
@@ -96,3 +97,25 @@ for (let i of textarea) {
         }
     })
 }
+
+const submitBtn = document.querySelector('#submitButton');
+submitBtn.addEventListener('click', () => {
+    let passed = false;
+    var css = [
+        cssInput.value,
+    ].join('\n');
+    let line, errorMessage;
+    cssValidate(css, function (err, data) {
+        if (data.validity = true) {
+            line = data.errors[0].line;
+            errorMessage = data.errors[0].message.trim();
+        } else {
+            passed = true;
+        }
+    });
+    if (passed = true) {
+        document.querySelector('form').submit()
+    } else {
+        //some sort of notification with line and exact error
+    }
+})

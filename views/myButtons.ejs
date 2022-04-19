@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css">
+    <link rel="stylesheet" type="text/css" href="/css/myButtons.css">
+</head>
+
+<body>
+    <%- include('partials/navbar') %>
+        <% for(let code of codes){ %>
+            <p class="invisible">
+                <%= code %>
+            </p>
+            <% } %>
+                <% if(userResult !==false){ %>
+                    <% if(buttons.length) {%>
+                        <div class="container">
+                            <% for(let button of buttons) {%>
+                                <div class="card">
+                                    <iframe src="" frameborder="0"></iframe>
+                                    <div class="info">
+                                        <% if(button.posted===true) {%>
+                                            <h3 class="posted">Posted</h3>
+                                            <p>Name: <%= button.name %>
+                                            </p>
+                                            <p>Last updated: 4hrs ago
+                                                <!--need to change this to a varible -->
+                                            </p>
+                                            <p>Views: <%= button.views%>
+                                            </p>
+                                            <a href="http://localhost:3000/buttons/<%= button.name %>/code">Edit</a>
+                                            <% } else{%>
+                                                <h3 class="notPosted">Not posted</h3>
+                                                <p>Name: <%= button.name %>
+                                                </p>
+                                                <p>Name: <%= button.name %>
+                                                </p>
+                                                <% } %>
+
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
+                        <% } else{ %>
+                            <h3 class="pitch"> Create your first button <a class="red"
+                                    href="http://localhost:3000/buttons/new">here</a></h3>
+                            <% } %>
+                                <% } else{%>
+                                    <h3 class="pitch"> <a class="red" href="http://localhost:3000/users/login">Login</a>
+                                        or <a class="red" href="http://localhost:3000/users/register">create an
+                                            account</a> to
+                                        view
+                                        your buttons
+                                    </h3>
+                                    <% } %>
+                                        <script src="/javascript/myButtons.js"></script>
+</body>
+
+</html>

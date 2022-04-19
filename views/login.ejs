@@ -15,11 +15,14 @@
         <div class="loginCard">
             <h1 id="title">Log In</h1>
             <label for="username" id="usernameLabel">Username</label>
-            <input type="text" name="username" id="username" class="field">
+            <div class="backDiv">
+
+                <input type="text" name="username" id="username" class="field">
+            </div>
             <label for="password">Password</label>
             <input type="password" name="password" id="password" class="field">
             <a href="/forgotpassword" id="forgotPassword">Forgot Password?</a>
-            <button id="loginBtn" type="submit">LOG IN</button>
+            <button id="loginBtn" type="button">LOG IN</button>
             <a href="http://localhost:3000/users/register" id="createAccount">Don't have an account?<span> Create an
                     Account</span></a>
         </div>

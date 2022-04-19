@@ -8,6 +8,9 @@ const fs = require('fs')
 const express = require('express');
 const app = express();
 const router = express.Router();
+var cssValidate = require('css-validator');
+var amphtmlValidator = require('amphtml-validator');
+
 
 router.get('/', async (req, res) => {
     let buttons = await Button.find()
@@ -17,43 +20,53 @@ router.get('/', async (req, res) => {
         codes.push(one.code)
     }
     buttons = buttons.reverse()
-    const getLoggedInUser = async () => {
-        const rawCookies = req.headers.cookie.split('; ');
-        const parsedCookies = {};
-        rawCookies.forEach(rawCookie => {
-            const parsedCookie = rawCookie.split('=');
-            parsedCookies[parsedCookie[0]] = parsedCookie[1];
-        });
-        let userId = decodeURI(parsedCookies.signedInUser);
-        const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
-        return loggedInUser;
+    let userResult;
+    if (req.headers.cookie) {
+        const getLoggedInUser = async () => {
+            const rawCookies = req.headers.cookie.split('; ');
+            const parsedCookies = {};
+            rawCookies.forEach(rawCookie => {
+                const parsedCookie = rawCookie.split('=');
+                parsedCookies[parsedCookie[0]] = parsedCookie[1];
+            });
+            let userId = decodeURI(parsedCookies.signedInUser);
+            const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
+            return loggedInUser;
+        }
+        userResult = await getLoggedInUser();
+    } else {
+        userResult = false;
     }
-    const userResult = await getLoggedInUser();
-    console.log(userResult)
     res.render('allButtons', { buttons, codes, userResult })
 })
 
 //post route for creating new button
 router.post('/', async (req, res) => {
-    //saving button to db
     const fullCode = `${req.body.htmlInput} 
      <style> ${req.body.cssInput} body{ display: flex; justify-content: center; align-items: center; background: none;}<style>
      <script>${req.body.jsInput}<script>`
 
-    const getLoggedInUser = async () => {
-        const rawCookies = req.headers.cookie.split('; ');
-        const parsedCookies = {};
-        rawCookies.forEach(rawCookie => {
-            const parsedCookie = rawCookie.split('=');
-            parsedCookies[parsedCookie[0]] = parsedCookie[1];
-        });
-        let userId = decodeURI(parsedCookies.signedInUser);
-        const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
-        return loggedInUser;
+    //finding the signed in user
+    let userResult;
+    if (req.headers.cookie) {
+        const getLoggedInUser = async () => {
+            const rawCookies = req.headers.cookie.split('; ');
+            const parsedCookies = {};
+            rawCookies.forEach(rawCookie => {
+                const parsedCookie = rawCookie.split('=');
+                parsedCookies[parsedCookie[0]] = parsedCookie[1];
+            });
+            let userId = decodeURI(parsedCookies.signedInUser);
+            const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
+            return loggedInUser;
+        }
+        userResult = await getLoggedInUser();
+    } else {
+        userResult = false;
     }
-    const userResult = await getLoggedInUser();
-    const newBtn = new Button({ name: req.body.name, user: userResult._id, dateCreated: new Date().toLocaleDateString(), code: fullCode, views: 0, likes: 0 });
-    await newBtn.save()
+    //saving to db
+    const newBtn = new Button({ name: req.body.name, user: userResult._id, dateCreated: new Date().toLocaleDateString(), code: fullCode, views: 0, likes: 0, posted: true });
+    //await newBtn.save()
 
     //writing to css file
     let nw;
@@ -76,38 +89,83 @@ router.post('/', async (req, res) => {
 
 //route for creating a new button with code editor
 router.get('/new', async (req, res) => {
-    const getLoggedInUser = async () => {
-        const rawCookies = req.headers.cookie.split('; ');
-        const parsedCookies = {};
-        rawCookies.forEach(rawCookie => {
-            const parsedCookie = rawCookie.split('=');
-            parsedCookies[parsedCookie[0]] = parsedCookie[1];
-        });
-        let userId = decodeURI(parsedCookies.signedInUser);
-        const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
-        return loggedInUser;
+    let userResult;
+    if (req.headers.cookie) {
+        const getLoggedInUser = async () => {
+            const rawCookies = req.headers.cookie.split('; ');
+            const parsedCookies = {};
+            rawCookies.forEach(rawCookie => {
+                const parsedCookie = rawCookie.split('=');
+                parsedCookies[parsedCookie[0]] = parsedCookie[1];
+            });
+            let userId = decodeURI(parsedCookies.signedInUser);
+            const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
+            return loggedInUser;
+        }
+        userResult = await getLoggedInUser();
+    } else {
+        userResult = false;
     }
-    const userResult = await getLoggedInUser();
     res.render('codeEditor', { userResult })
 })
 
+router.get('/mine', async (req, res) => {
+    let userResult;
+    if (req.headers.cookie) {
+        const getLoggedInUser = async () => {
+            const rawCookies = req.headers.cookie.split('; ');
+            const parsedCookies = {};
+            rawCookies.forEach(rawCookie => {
+                const parsedCookie = rawCookie.split('=');
+                parsedCookies[parsedCookie[0]] = parsedCookie[1];
+            });
+            let userId = decodeURI(parsedCookies.signedInUser);
+            const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
+            return loggedInUser;
+        }
+        userResult = await getLoggedInUser();
+    } else {
+        userResult = false;
+    }
+    const allBtns = await Button.find()
+        .populate('user')
+    let buttons = []
+    for (let btn of allBtns) {
+        if (btn.user.username === userResult.username) {
+            buttons.push(btn)
+        }
+    }
+    let codes = [];
+    for (let one of buttons) {
+        codes.push(one.code)
+    }
+    buttons = buttons.reverse()
+    res.render('myButtons', { userResult, buttons, codes })
+})
 
 router.get('/:name', async (req, res) => {
     const name = req.params.name;
     const btn = await Button.findOne({ name: name })
         .populate('user')
-    const getLoggedInUser = async () => {
-        const rawCookies = req.headers.cookie.split('; ');
-        const parsedCookies = {};
-        rawCookies.forEach(rawCookie => {
-            const parsedCookie = rawCookie.split('=');
-            parsedCookies[parsedCookie[0]] = parsedCookie[1];
-        });
-        let userId = decodeURI(parsedCookies.signedInUser);
-        const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
-        return loggedInUser;
+    console.log(name)
+    await Button.updateOne({ name: name }, { $set: { views: btn.views + 1 } })
+    let userResult;
+    if (req.headers.cookie) {
+        const getLoggedInUser = async () => {
+            const rawCookies = req.headers.cookie.split('; ');
+            const parsedCookies = {};
+            rawCookies.forEach(rawCookie => {
+                const parsedCookie = rawCookie.split('=');
+                parsedCookies[parsedCookie[0]] = parsedCookie[1];
+            });
+            let userId = decodeURI(parsedCookies.signedInUser);
+            const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
+            return loggedInUser;
+        }
+        userResult = await getLoggedInUser();
+    } else {
+        userResult = false;
     }
-    const userResult = await getLoggedInUser();
     res.render('buttonInfoView', { btn, userResult });
 })
 
@@ -115,21 +173,33 @@ const getPosition = (string, subString, index) => string.split(subString, index)
 const slicer = (search, code) => code.slice(code.indexOf(search) + 7, getPosition(code, search, 2) - 1);
 //route for showing code for specific button
 router.get('/:name/code', async (req, res) => {
-    const btn = await Button.findOne({ name: req.params.name });
+    const btn = await Button.findOne({ name: req.params.name })
+        .populate('user');
     let code = btn.code;
-    const getLoggedInUser = async () => {
-        const rawCookies = req.headers.cookie.split('; ');
-        const parsedCookies = {};
-        rawCookies.forEach(rawCookie => {
-            const parsedCookie = rawCookie.split('=');
-            parsedCookies[parsedCookie[0]] = parsedCookie[1];
-        });
-        let userId = decodeURI(parsedCookies.signedInUser);
-        const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
-        return loggedInUser;
+    let userResult;
+    if (req.headers.cookie) {
+        const getLoggedInUser = async () => {
+            const rawCookies = req.headers.cookie.split('; ');
+            const parsedCookies = {};
+            rawCookies.forEach(rawCookie => {
+                const parsedCookie = rawCookie.split('=');
+                parsedCookies[parsedCookie[0]] = parsedCookie[1];
+            });
+            let userId = decodeURI(parsedCookies.signedInUser);
+            const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
+            return loggedInUser;
+        }
+        userResult = await getLoggedInUser();
+    } else {
+        userResult = false;
     }
-    const userResult = await getLoggedInUser();
-    res.render('buttonCodeView', { html: code.slice(code.indexOf('<'), getPosition(code, '>', 2) + 1), css: slicer('style', code), js: slicer('script', code), btn, userResult })
+    if (btn.user.username == userResult.username) {
+        res.render('buttonEditor', { html: code.slice(code.indexOf('<'), getPosition(code, '>', 2) + 1), css: slicer('style', code), js: slicer('script', code), btn, userResult })
+    } else {
+        res.render('buttonCodeView', { html: code.slice(code.indexOf('<'), getPosition(code, '>', 2) + 1), css: slicer('style', code), js: slicer('script', code), btn, userResult })
+    }
 })
+
+
 
 module.exports = router;

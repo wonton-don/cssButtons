@@ -21,10 +21,14 @@
                 <input type="text" name="email" id="email" class="field" required>
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" class="field" required>
+                <a href="http://localhost:3000/users/login">Already have an account? <span> Sign in here</span></a>
                 <button class="btn continueBtn" type="button">Continue</button>
             </div>
             <div class="pt2 none">
-                <h1 class="title">Create Your Account</h1>
+                <div class="top">
+                    <img src="/assets/icone-fleche-droite-noir.png" alt="" id="backArrow">
+                    <h1 class="title">Create Your Account</h1>
+                </div>
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" class="field" required>
                 <label for="bio">Bio</label>
@@ -35,7 +39,7 @@
                     <img src="/profilePics/download.jpeg" alt="" class="option opt2 selected">
                 </div>
                 <input type="text" name="profilePicture" id="profilePicture" required>
-                <button class="btn submitBtn">Submit</button>
+                <button class="btn submitBtn" type="button">Submit</button>
             </div>
         </div>
     </form>

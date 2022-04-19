@@ -4,7 +4,7 @@ html {
 
 body {
     height: 100%;
-    background: #5971a5;
+    background: #eae0d0;
     overflow: hidden;
     margin: 0 0 0 0;
 }
@@ -94,7 +94,7 @@ select:focus {
 }
 
 .submit {
-    background-color: #2d426e;
+    background: #acacac;
     height: 7%;
     width: 101%;
     display: flex;

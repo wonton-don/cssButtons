@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supreme</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css">
+    <link rel="stylesheet" type="text/css" href="/css/codeEditor.css">
+</head>
+
+<body class="body">
+    <%- include('partials/navbar') %>
+        <div class="container">
+            <form action="http://localhost:3000/buttons" method="post">
+                <div class="tabContainer">
+                    <textarea name="name" id="name" cols="30" rows="10" class="name"
+                        maxlength="12"><%= btn.name %> </textarea>
+                    <button type="button" class="htmlButton">HTML</button>
+                    <button type="button" class="cssButton notActive">CSS</button>
+                    <button type="button" class="jsButton notActive">JS</button>
+                </div>
+                <div class="codeEditor">
+                    <div class="htmlCode con">
+                        <textarea class="htmlInput textarea" name="htmlInput" id="htmlInput" cols="30" rows="10">
+<%= html %> 
+                    </textarea>
+                    </div>
+                    <div class="cssCode con none">
+                        <textarea class="cssInput textarea" name="cssInput" id="cssInput" cols="30" rows="10">
+<%= css %> 
+                </textarea>
+                    </div>
+                    <div class="jsCode con none">
+                        <textarea class="jsInput textarea" name="jsInput" id="jsInput" cols="30"
+                            rows="10"><%= js %></textarea>
+                    </div>
+
+                </div>
+                <div class="line"></div>
+                <div class="rightSide">
+                    <iframe id="output"></iframe>
+                    <div class="submit">
+                        <button id="submitButton">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="/javascript/codeEditor.js"></script>
+
+
+</body>
+
+</html>

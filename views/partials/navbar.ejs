@@ -3,15 +3,24 @@
 <div class="navBar">
     <div class="first">
         <a href="http://localhost:3000/buttons">All Buttons</a>
-        <a href="">My Buttons</a>
+        <a href="http://localhost:3000/buttons/mine">My Buttons</a>
     </div>
     <div class="second">
         <img src="/assets/icons8-search-240.png" class="searchIcon" alt="">
-        <button class="create">Create a button</button>
-        <button class="find">Find buttons</button>
-        <a href="http://localhost:3000/users/<%= userResult.username %>" id="profileLink">
+        <% if(userResult) {%>
+            <button class="create">Create a button</button>
+            <button class="find">Find buttons</button>
             <img src="<%= userResult.profilePicture %>" class="cornerProfilePic" alt="">
-        </a>
+            <% } else{%>
+                <button class="login">Login</button>
+                <button class="register">Create an account</button>
+                <% } %>
     </div>
+</div>
+<div class="dropdown none">
+    <a href="http://localhost:3000/users/<%= userResult.username %>">
+        Profile</a>
+    <a href="http://localhost:3000/users/<%= userResult.username %>/edit">Edit Your Profile</a>
+    <button id="logoutBtn">Log out</button>
 </div>
 <script src="/javascript/navbar.js"></script>
