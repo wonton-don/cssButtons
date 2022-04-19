@@ -10,19 +10,20 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const session = require("express-session");
 const cookieParser = require('cookie-parser');
-
-
+const multer = require('multer')
+const upload = multer({ dest: '../public/uploads/' })
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-router.get('/new', (req, res) => {
+router.get('/register', (req, res) => {
     res.render('signUp');
 })
 
-router.get('/login', (req, res) => {
-    res.render('signIn');
+router.get('/login', async (req, res) => {
+    const allBtns = await Button.find();
+    res.render('login');
 })
 
 router.post('/login', async (req, res) => {
@@ -56,16 +57,28 @@ router.get('/:username', async (req, res) => {
         codes.push(one.code)
     }
     buttons = buttons.reverse()
-    res.render('specificUser', { usr, dateJoined, buttons, codes })
+    const getLoggedInUser = async () => {
+        const rawCookies = req.headers.cookie.split('; ');
+        const parsedCookies = {};
+        rawCookies.forEach(rawCookie => {
+            const parsedCookie = rawCookie.split('=');
+            parsedCookies[parsedCookie[0]] = parsedCookie[1];
+        });
+        let userId = decodeURI(parsedCookies.signedInUser);
+        const loggedInUser = await User.findById(userId.slice(userId.indexOf('"') + 1, userId.length - 1));
+        return loggedInUser;
+    }
+    const userResult = await getLoggedInUser();
+    res.render('specificUser', { usr, dateJoined, buttons, codes, userResult })
 })
 
-router.post('/new', async (req, res) => {
+router.post('/register', upload.single('imgUpload'), async (req, res) => {
     const username = await User.find({ username: req.body.username });
     if (username.length === 0) {
         const hash = await bcrypt.hash(req.body.password, 12);
-        const usr = new User({ name: req.body.name, username: req.body.username, email: req.body.email, profilePicture: '/profilePics/download.jpegs', bio: req.body.bio, postCount: 0, followerCount: 0, joined: new Date().toLocaleDateString(), hashedPassword: hash })
+        const usr = new User({ name: req.body.name, username: req.body.username, email: req.body.email, profilePicture: req.body.profilePicture, bio: req.body.bio, postCount: 0, followerCount: 0, joined: new Date().toLocaleDateString(), hashedPassword: hash })
         await usr.save()
-        res.cookie(signedInUser, usr._id)
+        res.cookie('signedInUser', usr._id)
         res.redirect('http://localhost:3000/buttons')
     } else {
         res.redirect('http://localhost:3000/users/new')

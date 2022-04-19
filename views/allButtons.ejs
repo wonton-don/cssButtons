@@ -11,58 +11,17 @@
 </head>
 
 <body>
-    <div class="navBar">
-        <div class="first">
-            <a href="http://localhost:3000/buttons">All Buttons</a>
-            <a href="">My Buttons</a>
+    <%- include('partials/navbar') %>
+        <h1>All Buttons</h1>
+        <div class="container">
+            <% for(let code of codes){ %>
+                <p class="invisible">
+                    <%= code %>
+                </p>
+                <% } %>
+                    <%- include('partials/buttonCard') %>
         </div>
-        <div class="second">
-            <img src="/assets/icons8-search-240.png" class="searchIcon" alt="">
-            <button class="create">Create a button</button>
-            <button class="find">Find buttons</button>
-            <img src="/profilePics/1000_F_354224472_xDMe07QdjI8DII3JyEcFUNrH31ECEpf2.jpeg" class="cornerProfilePic"
-                alt="">
-
-        </div>
-    </div>
-    <h1>All Buttons</h1>
-    <div class="container">
-        <% for(let code of codes){ %>
-            <p class="invisible">
-                <%= code %>
-            </p>
-            <% } %>
-
-                <% for(let button of buttons) {%>
-                    <div class="card">
-                        <iframe src="" frameborder="0"></iframe>
-                        <div class="info">
-                            <img class="profilePic" src="<%= button.user.profilePicture %> " alt="">
-                            <div class="userText">
-                                <h3 class="inline">
-                                    <%= button.name %>
-                                </h3>
-                                <a class="red" href="http://localhost:3000/users/<%= button.user.username %> ">
-                                    <%= button.user.username%>
-                                </a>
-                            </div>
-                            <div class="product-review-stars">
-                                <input type="radio" id="star5" name="rating" value="5" class="visuallyhidden" /><label
-                                    for="star5" title="Rocks!">★</label>
-                                <input type="radio" id="star4" name="rating" value="4" class="visuallyhidden" /><label
-                                    for="star4" title="Pretty good">★</label>
-                                <input type="radio" id="star3" name="rating" value="3" class="visuallyhidden" /><label
-                                    for="star3" title="Meh">★</label>
-                                <input type="radio" id="star2" name="rating" value="2" class="visuallyhidden" /><label
-                                    for="star2" title="Kinda bad">★</label>
-                                <input type="radio" id="star1" name="rating" value="1" class="visuallyhidden" /><label
-                                    for="star1" title="Sucks big time">★</label>
-                            </div>
-                        </div>
-                    </div>
-                    <% } %>
-    </div>
-    <script src="/javascript/allButtons.js"></script>
+        <script src="/javascript/allButtons.js"></script>
 
 </body>
 

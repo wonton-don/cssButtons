@@ -11,55 +11,42 @@
 </head>
 
 <body>
-    <div class="navBar">
-        <div class="first">
-            <a href="http://localhost:3000/buttons">All Buttons</a>
-            <a href="">My Buttons</a>
-        </div>
-        <div class="second">
-            <img src="/assets/icons8-search-240.png" class="searchIcon" alt="">
-            <button class="create">Create a button</button>
-            <button class="find">Find buttons</button>
-            <img src="/profilePics/1000_F_354224472_xDMe07QdjI8DII3JyEcFUNrH31ECEpf2.jpeg" class="cornerProfilePic"
-                alt="">
+    <%- include('partials/navbar') %>
+        <p class="invisible">
+            <%= btn.code %>
+        </p>
+        <iframe src="" frameborder="0"></iframe>
+        <div class="info">
+            <div class="block1">
+                <h3 id="name">
+                    <%= btn.name %>
+                </h3>
+                <p id="username">
+                    <%= btn.user.username %>
+                        <img id="profilePic" src="<%= btn.user.profilePicture %> " alt="">
+                </p>
 
-        </div>
-    </div>
-    <p class="invisible">
-        <%= btn.code %>
-    </p>
-    <iframe src="" frameborder="0"></iframe>
-    <div class="info">
-        <div class="block1">
-            <h3 id="name">
-                <%= btn.name %>
-            </h3>
-            <p id="username">
-                <%= btn.user.username %>
-                    <img id="profilePic" src="<%= btn.user.profilePicture %> " alt="">
-            </p>
-
-        </div>
-        <div class="middle">
-            <div class="rating">
-                <p id="rating">Rating</p>
-                <h2>
-                    <%= btn.rating%>
-                </h2>
             </div>
-            <div class="difficulty">
-                <p id="difficulty">Difficulty</p>
-                <h2>
-                    <%= btn.difficulty%>
-                </h2>
+            <div class="middle">
+                <div class="rating">
+                    <p id="rating">Rating</p>
+                    <h2>
+                        <%= btn.rating%>
+                    </h2>
+                </div>
+                <div class="difficulty">
+                    <p id="difficulty">Difficulty</p>
+                    <h2>
+                        <%= btn.difficulty%>
+                    </h2>
+                </div>
+            </div>
+            <div class="end">
+                <a href="http://localhost:3000/buttons/<%= btn.name %>/code ">View code</a>
+                <img src="/assets/right-arrows.png" id="nextArrow" alt="">
             </div>
         </div>
-        <div class="end">
-            <a href="http://localhost:3000/buttons/<%= btn.name %>/code ">View code</a>
-            <img src="/assets/right-arrows.png" id="nextArrow" alt="">
-        </div>
-    </div>
-    <script src="/javascript/buttonInfoViewer.js"></script>
+        <script src="/javascript/buttonInfoViewer.js"></script>
 </body>
 
 </html>

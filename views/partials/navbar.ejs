@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="/css/navbar.css">
+
+<div class="navBar">
+    <div class="first">
+        <a href="http://localhost:3000/buttons">All Buttons</a>
+        <a href="">My Buttons</a>
+    </div>
+    <div class="second">
+        <img src="/assets/icons8-search-240.png" class="searchIcon" alt="">
+        <button class="create">Create a button</button>
+        <button class="find">Find buttons</button>
+        <a href="http://localhost:3000/users/<%= userResult.username %>" id="profileLink">
+            <img src="<%= userResult.profilePicture %>" class="cornerProfilePic" alt="">
+        </a>
+    </div>
+</div>
+<script src="/javascript/navbar.js"></script>

@@ -5,25 +5,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
+    <title>Create Your Account</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css">
     <link rel="stylesheet" href="/css/signUp.css">
 </head>
 
 <body>
-    <form action="http://localhost:3000/users/new" method="post">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username">
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email">
-        <!-- a goated button maker default bio -->
-        <label for="bio">Bio:</label>
-        <input type="text" name="bio" id="bio">
-        <button>Submit</button>
+    <form action="http://localhost:3000/users/register" method="post">
+        <div class="card">
+            <div class="pt1">
+                <h1 class="title">Create Your Account</h1>
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="field" required>
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="field" required>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" class="field" required>
+                <button class="btn continueBtn" type="button">Continue</button>
+            </div>
+            <div class="pt2 none">
+                <h1 class="title">Create Your Account</h1>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="field" required>
+                <label for="bio">Bio</label>
+                <textarea name="bio" class="field" id="bio" cols="30" rows="10"></textarea>
+                <label for="profilePicture">Profile Picture</label>
+                <div id="options">
+                    <img src="/profilePics/girl1.jpeg" alt="" class="option opt1">
+                    <img src="/profilePics/download.jpeg" alt="" class="option opt2 selected">
+                </div>
+                <input type="text" name="profilePicture" id="profilePicture" required>
+                <button class="btn submitBtn">Submit</button>
+            </div>
+        </div>
     </form>
+    <script src="/javascript/signUp.js"></script>
 </body>
 
 </html>

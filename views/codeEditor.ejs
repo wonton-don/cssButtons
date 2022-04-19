@@ -11,56 +11,43 @@
 </head>
 
 <body class="body">
-    <div class="navBar">
-        <div class="first">
-            <a href="http://localhost:3000/buttons">All Buttons</a>
-            <a href="">My Buttons</a>
-        </div>
-        <div class="second">
-            <img src="/assets/icons8-search-240.png" class="searchIcon" alt="">
-            <button class="create">Create a button</button>
-            <button class="find">Find buttons</button>
-            <img src="/profilePics/1000_F_354224472_xDMe07QdjI8DII3JyEcFUNrH31ECEpf2.jpeg" class="cornerProfilePic"
-                alt="">
-
-        </div>
-    </div>
-    <div class="container">
-        <form action="http://localhost:3000/buttons" method="post">
-            <div class="tabContainer">
-                <textarea name="name" id="name" cols="30" rows="10" class="name">enter name</textarea>
-                <button type="button" class="htmlButton">HTML</button>
-                <button type="button" class="cssButton notActive">CSS</button>
-                <button type="button" class="jsButton notActive">JS</button>
-            </div>
-            <div class="codeEditor">
-                <div class="htmlCode con">
-                    <textarea class="htmlInput textarea" name="htmlInput" id="htmlInput" cols="30" rows="10">
+    <%- include('partials/navbar') %>
+        <div class="container">
+            <form action="http://localhost:3000/buttons" method="post">
+                <div class="tabContainer">
+                    <textarea name="name" id="name" cols="30" rows="10" class="name">enter name</textarea>
+                    <button type="button" class="htmlButton">HTML</button>
+                    <button type="button" class="cssButton notActive">CSS</button>
+                    <button type="button" class="jsButton notActive">JS</button>
+                </div>
+                <div class="codeEditor">
+                    <div class="htmlCode con">
+                        <textarea class="htmlInput textarea" name="htmlInput" id="htmlInput" cols="30" rows="10">
 <button>Edit Me!</button>
                     </textarea>
-                </div>
-                <div class="cssCode con none">
-                    <textarea class="cssInput textarea" name="cssInput" id="cssInput" cols="30" rows="10">
+                    </div>
+                    <div class="cssCode con none">
+                        <textarea class="cssInput textarea" name="cssInput" id="cssInput" cols="30" rows="10">
 button{
 
 }
                 </textarea>
-                </div>
-                <div class="jsCode con none">
-                    <textarea class="jsInput textarea" name="jsInput" id="jsInput" cols="30" rows="10"></textarea>
-                </div>
+                    </div>
+                    <div class="jsCode con none">
+                        <textarea class="jsInput textarea" name="jsInput" id="jsInput" cols="30" rows="10"></textarea>
+                    </div>
 
-            </div>
-            <div class="line"></div>
-            <div class="rightSide">
-                <iframe id="output"></iframe>
-                <div class="submit">
-                    <button id="submitButton">Submit</button>
                 </div>
-            </div>
-        </form>
-    </div>
-    <script src="/javascript/codeEditor.js"></script>
+                <div class="line"></div>
+                <div class="rightSide">
+                    <iframe id="output"></iframe>
+                    <div class="submit">
+                        <button id="submitButton">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="/javascript/codeEditor.js"></script>
 </body>
 
 </html>

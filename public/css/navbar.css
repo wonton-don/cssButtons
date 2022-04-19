@@ -1,0 +1,76 @@
+/* nav bar*/
+.navBar {
+    width: 100%;
+    height: 5.3%;
+    background-color: #C4C4C4;
+    margin: 0 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.first {
+    display: flex;
+    margin: 0 0 0 0;
+    width: 50%;
+}
+
+.first>a {
+    color: black;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 18px;
+    margin-left: 5%;
+}
+
+.second {
+    margin: 0 0 0 0;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.second>button {
+    height: 80%;
+    width: 15%;
+    margin: 0 1.5% 0 0%;
+    border-radius: 3px;
+    border: 1px solid black;
+    font-weight: 400;
+    transition: all 0.25s;
+}
+
+.second>button:hover {
+    cursor: pointer;
+    background: rgb(229, 229, 229);
+}
+
+.searchIcon {
+    height: 67%;
+    width: auto;
+    margin-right: 2%;
+}
+
+#profileLink {
+    margin: 0 0 0 0;
+    height: 85%;
+    width: 5%;
+    margin-right: 6%;
+}
+
+.cornerProfilePic {
+    height: 100%;
+    width: auto;
+    border-radius: 8%;
+}
+
+.navFlex {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    margin-bottom: 0;
+}
